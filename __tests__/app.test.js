@@ -18,8 +18,8 @@ describe('app routes', () => {
       const signInData = await fakeRequest(app)
         .post('/auth/signup')
         .send({
-          email: 'jon@user.com',
-          password: '1234'
+          email: 'john@arbuckle.com',
+          password: 1234
         });
       
       token = signInData.body.token; // eslint-disable-line
@@ -27,9 +27,9 @@ describe('app routes', () => {
       return done();
     });
   
-    // afterAll(done => {
-    //   return client.end(done);
-    // });
+    afterAll(done => {
+      return client.end(done);
+    });
 
     test('returns trek', async() => {
 
