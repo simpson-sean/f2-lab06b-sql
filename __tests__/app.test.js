@@ -14,48 +14,83 @@ describe('app routes', () => {
       execSync('npm run setup-db');
   
       client.connect();
-  
+      
+      console.log('hello world');
+
       const signInData = await fakeRequest(app)
         .post('/auth/signup')
         .send({
-          email: 'jon@user.com',
+          email: 'test@test.com',
           password: '1234'
         });
       
+        console.log(signInData)
+
       token = signInData.body.token; // eslint-disable-line
   
       return done();
-    });
+    }, 10000);
   
     afterAll(done => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    test('returns trek', async() => {
 
       const expectation = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
+          "id": 100,
+          "name": "jean_luc_picard",
+          "species": "human",
+          "faction": "starfleet",
+          "category": "command",
+          "rank": "captain",
+          "is_carbon_based": true
         },
+          
         {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
+          "id": 101,
+          "name": "data",
+          "species": "android",
+          "faction": "starfleet",
+          "category": "command",
+          "rank": "lieutenant_commander",
+          "is_carbon_based": false
         },
+
         {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
-        }
+          "id": 102,
+          "name": "spock",
+          "species": "vulcan",
+          "faction": "starfleet",
+          "role": "science",
+          "rank": "commander",
+          "is_carbon_based": true
+        },
+
+        {
+          "id": 103,
+          "name": "weyoun",
+          "species": "vorta",
+          "faction": "dominion",
+          "role": "supervisor",
+          "rank": "supervisor",
+          "is_carbon_based": true
+        },
+
+        {
+          "id": 104,
+          "name": "general_martok",
+          "species": "klingon",
+          "faction": "klingon_empire",
+          "role": "military",
+          "rank": "general",
+          "is_carbon_based": true
+          }
       ];
 
       const data = await fakeRequest(app)
-        .get('/animals')
+        .get('/trek')
         .expect('Content-Type', /json/)
         .expect(200);
 
