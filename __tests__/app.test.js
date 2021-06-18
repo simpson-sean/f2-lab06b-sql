@@ -14,18 +14,22 @@ describe('app routes', () => {
       execSync('npm run setup-db');
   
       client.connect();
-  
+      
+      console.log('hello world');
+
       const signInData = await fakeRequest(app)
         .post('/auth/signup')
         .send({
-          email: 'john@arbuckle.com',
-          password: 1234
+          email: 'test@test.com',
+          password: '1234'
         });
       
+        console.log(signInData)
+
       token = signInData.body.token; // eslint-disable-line
   
       return done();
-    });
+    }, 10000);
   
     afterAll(done => {
       return client.end(done);
@@ -39,7 +43,7 @@ describe('app routes', () => {
           "name": "jean_luc_picard",
           "species": "human",
           "faction": "starfleet",
-          "role": "command",
+          "category": "command",
           "rank": "captain",
           "is_carbon_based": true
         },
@@ -49,7 +53,7 @@ describe('app routes', () => {
           "name": "data",
           "species": "android",
           "faction": "starfleet",
-          "role": "command",
+          "category": "command",
           "rank": "lieutenant_commander",
           "is_carbon_based": false
         },

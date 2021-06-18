@@ -27,10 +27,10 @@ async function run() {
     await Promise.all(
       trek.map(trek => {
         return client.query(`
-                    INSERT INTO trek (id, name, species, faction, role, rank, is_carbon_based)
+                    INSERT INTO trek (id, name, species, faction, category, rank, is_carbon_based)
                     VALUES ($1, $2, $3, $4, $5, $6, $7);
                 `,
-        [trek.id, trek.name, trek.species, trek.faction, trek.role, trek.rank, trek.is_carbon_based]);
+        [trek.id, trek.name, trek.species, trek.faction, trek.category, trek.rank, trek.is_carbon_based]);
       })
     );
     

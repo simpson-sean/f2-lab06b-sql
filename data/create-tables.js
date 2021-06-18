@@ -22,7 +22,7 @@ async function run() {
                     name VARCHAR(512) NOT NULL,
                     species VARCHAR(512) NOT NULL,
                     faction VARCHAR(512) NOT NULL,
-                    role VARCHAR(512) NOT NULL,
+                    category VARCHAR(512) NOT NULL,
                     rank VARCHAR(512) NOT NULL,
                     is_carbon_based VARCHAR(512) NOT NULL
             );
