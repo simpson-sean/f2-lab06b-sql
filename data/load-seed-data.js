@@ -1,6 +1,8 @@
 const client = require('../lib/client');
+
 // import our seed data:
 const trek = require('./trek.js');
+const faction = require('./faction.js');
 const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
 
@@ -27,16 +29,27 @@ async function run() {
     await Promise.all(
       trek.map(trek => {
         return client.query(`
-                    INSERT INTO trek (id, name, species, faction, category, rank, is_carbon_based)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7);
-                `,
-        [trek.id, trek.name, trek.species, trek.faction, trek.category, trek.rank, trek.is_carbon_based]);
+          INSERT INTO trek_character (id, name, species, category, rank, is_carbon_based)
+          VALUES ($1, $2, $3, $4, $5, $6);
+          `,
+        [trek.id, trek.name, trek.species, trek.category, trek.rank, trek.is_carbon_based]);
       })
     );
+    
+    await Promise.all(
+      faction.map(faction => {
+        return client.query(`
+          INSERT INTO trek_faction (id, faction)
+          VALUES ($1, $2)
+        `,
+        [faction.id, faction.faction]);
+      })
+    )
     
 
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
+  
   catch(err) {
     console.log(err);
   }
