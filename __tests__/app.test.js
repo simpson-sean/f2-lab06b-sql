@@ -35,7 +35,7 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns trek', async() => {
+    test('returns trek_character', async() => {
 
       const expectation = [
         {
@@ -90,7 +90,7 @@ describe('app routes', () => {
       ];
 
       const data = await fakeRequest(app)
-        .get('/trek')
+        .get('/trek_character')
         .expect('Content-Type', /json/)
         .expect(200);
 

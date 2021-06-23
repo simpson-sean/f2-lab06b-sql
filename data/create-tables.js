@@ -16,19 +16,21 @@ async function run() {
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
-                );           
+                );  
+                CREATE TABLE trek_faction (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    faction VARCHAR(512) NOT NULL
+                );
                 CREATE TABLE trek_character (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
                     species VARCHAR(512) NOT NULL,
+                    faction_id INTEGER REFERENCES NOT NULL trek_faction(id),
                     category VARCHAR(512) NOT NULL,
                     rank VARCHAR(512) NOT NULL,
                     is_carbon_based VARCHAR(512) NOT NULL
                 );
-                CREATE TABLE trek_faction (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    faction VARCHAR(512) NOT NULL
-                )
+
            `);
 
     console.log('create tables complete', getEmoji(), getEmoji(), getEmoji());
