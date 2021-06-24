@@ -1,21 +1,25 @@
 module.exports = [
     {
-        "faction": "starfleet",
+        "name": "starfleet",
     
     },
 
     {
-        "faction": "klingon_empire",
+        "name": "klingon_empire",
     
     },
 
     {
-        "faction": "dominion",
+        "name": "dominion",
     
     },
 
     {
-        "faction": "romulan_empire",
+        "name": "romulan_empire",
+    },
+
+    {
+        "name": "the_borg",
     }
 
 ]

@@ -29,31 +29,43 @@ async function run() {
       
     const user = users[0].rows[0];
 
-    await Promise.all(
+
+    const factionResponses = await Promise.all(
       faction.map(faction => {
         return client.query(`
                       INSERT INTO trek_faction (faction)
                       VALUES ($1)
+                      RETURNING *;
         `,
-        [faction.faction]);
+        [faction.name]);
       })
     )
+
+    const factions = factionResponses.map(response => {
+      return response.rows[0];
+
+    });
 
 
     await Promise.all(
       trek.map(trek => {
-        console.log(trek);
+        const matchFaction = factions.find(faction => {
+          return faction.faction === trek.faction;
+
+        });
+
+        console.log(factions);
+        console.log(trek.faction);
+
+
         return client.query(`
-                      INSERT INTO trek_character (name, species, faction_id, category, rank, is_carbon_based)
+                      INSERT INTO trek_character (name, species, faction, category, rank, is_carbon_based)
                       VALUES ($1, $2, $3, $4, $5, $6)
           `,
-        [trek.name, trek.species, trek.faction_id, trek.category, trek.rank, trek.is_carbon_based]);
+        [trek.name, trek.species, matchFaction.id, trek.category, trek.rank, trek.is_carbon_based]);
       })
     );
 
-
-
-    
 
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
