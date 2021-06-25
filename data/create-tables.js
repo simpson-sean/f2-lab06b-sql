@@ -28,7 +28,7 @@ async function run() {
                     faction INTEGER NOT NULL REFERENCES trek_faction(id),
                     category VARCHAR(512) NOT NULL,
                     rank VARCHAR(512) NOT NULL,
-                    is_carbon_based VARCHAR(512) NOT NULL
+                    is_carbon_based BOOLEAN NOT NULL
                 );
 
            `);
