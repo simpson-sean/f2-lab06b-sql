@@ -5,9 +5,7 @@ const trek = require('./trek.js');
 const faction = require('./faction.js');
 const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
-//const { getFactionbyId } = require('../lib/utils.js');
-
-
+const { getFactionIdByName } = require('../lib/utils/utils.js');
 
 run();
 
@@ -49,20 +47,13 @@ async function run() {
 
     await Promise.all(
       trek.map(trek => {
-        const matchFaction = factions.find(faction => {
-          return faction.faction === trek.faction;
-
-        });
-
-        console.log(factions);
-        console.log(trek.faction);
-
-
+        const factionId = getFactionIdByName(factions, trek.faction);
+        
         return client.query(`
-                      INSERT INTO trek_character (name, species, faction, category, rank, is_carbon_based)
+                      INSERT INTO trek_character (name, species, faction_id, category, rank, is_carbon_based)
                       VALUES ($1, $2, $3, $4, $5, $6)
           `,
-        [trek.name, trek.species, matchFaction.id, trek.category, trek.rank, trek.is_carbon_based]);
+        [trek.name, trek.species, factionId, trek.category, trek.rank, trek.is_carbon_based]);
       })
     );
 

@@ -25,7 +25,7 @@ async function run() {
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
                     species VARCHAR(512) NOT NULL,
-                    faction INTEGER NOT NULL REFERENCES trek_faction(id),
+                    faction_id INTEGER NOT NULL REFERENCES trek_faction(id),
                     category VARCHAR(512) NOT NULL,
                     rank VARCHAR(512) NOT NULL,
                     is_carbon_based BOOLEAN NOT NULL
